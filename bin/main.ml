@@ -1,6 +1,6 @@
 let () =
   if Array.length Sys.argv != 2 then
-    Printf.eprintf "Argument MiniFun-program is needed"
+    Printf.eprintf "Argument MiniFun-program is needed\n"
   else
     let filename = Sys.argv.(1) in
     let input_file = open_in filename in
