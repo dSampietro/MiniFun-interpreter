@@ -1,0 +1,6 @@
+(executable
+ (public_name MiniFun_parser)
+ (name main)
+ (libraries lib)
+ (flags (:standard -w +8))
+)
