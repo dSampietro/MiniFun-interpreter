@@ -30,4 +30,4 @@ let () =
           (pos.pos_cnum - pos.pos_bol + 1)
 
     | exn -> close_in input_file; Printf.eprintf "Unexpected error: %s\n" (Printexc.to_string exn);
-  
+    
