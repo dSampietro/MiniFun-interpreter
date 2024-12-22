@@ -1,2 +1,6 @@
 _build/
 .vscode
+lib/MfParser.ml
+lib/MfParser.conflicts
+lib/MfLexer.ml
+lib/MfParser.mli
