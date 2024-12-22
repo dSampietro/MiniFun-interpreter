@@ -3,7 +3,9 @@ module StringMap = Map.Make(String)
 type value =
   | IntVal of int
   | BoolVal of bool
-  | Closure of string * MiniFun.exp * MiniFun.exp * env
+  | Closure of MiniFun.exp * MiniFun.exp * env
+  | RecClosure of string * MiniFun.exp * MiniFun.exp * env
+
 
   and env = value StringMap.t
 
@@ -20,4 +22,6 @@ let string_of_value (v: value): string =
   match v with
   | IntVal(i) -> string_of_int i
   | BoolVal(b) -> string_of_bool b
-  | Closure(fname, _, _, _) -> "function " ^ fname
+  | Closure(_, _, _) -> "function"
+  | RecClosure(fname, _, _, _) -> "rec function: " ^ fname
+

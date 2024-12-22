@@ -2,7 +2,8 @@
 type value =
   | IntVal of int
   | BoolVal of bool
-  | Closure of string * MiniFun.exp * MiniFun.exp * env
+  | Closure of MiniFun.exp * MiniFun.exp * env
+  | RecClosure of string * MiniFun.exp * MiniFun.exp * env
 
   and env
 
