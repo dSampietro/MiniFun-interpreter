@@ -1,6 +1,6 @@
-let rec eval (env: Enviroment.env) (e: MiniFun.exp) : Enviroment.value = match e with
+let rec eval (env: Environment.env) (e: MiniFun.exp) : Environment.value = match e with
   | Var(id) -> (
-    match Enviroment.lookup env id with
+    match Environment.lookup env id with
       | Some(value) -> value
       | None -> failwith ("Variable " ^ id ^ " not found")
     )
@@ -59,7 +59,7 @@ let rec eval (env: Enviroment.env) (e: MiniFun.exp) : Enviroment.value = match e
     | Var(s) ->
       (
       let t1_eval = eval env t1 in
-      let env1 = Enviroment.add env s t1_eval
+      let env1 = Environment.add env s t1_eval
       in eval env1 t2
       )
     | _ -> failwith "Invalid expression")
@@ -71,7 +71,7 @@ let rec eval (env: Enviroment.env) (e: MiniFun.exp) : Enviroment.value = match e
       | Closure(funName, arg, body, env') -> 
         (match arg with 
           | Var(arg) -> 
-            ( let recEnv = Enviroment.add env funName (Closure(funName, Var(arg), body, env'))
+            ( let recEnv = Environment.add env funName (Closure(funName, Var(arg), body, env'))
               in eval recEnv t2)
           | _ -> failwith "Not a valid expression"
         )
@@ -83,7 +83,7 @@ let rec eval (env: Enviroment.env) (e: MiniFun.exp) : Enviroment.value = match e
         | Closure(_, Var(arg), body, env1) -> 
           (
           let t2' = eval env t2 in
-          let env2 = Enviroment.add env1 arg t2'
+          let env2 = Environment.add env1 arg t2'
           in eval env2 body
           )
         | _ -> failwith "First term is not a function"

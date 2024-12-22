@@ -9,8 +9,15 @@ type value =
 
 
 (* Environment utils *)
-val new_env: unit -> env
-val lookup: env -> string -> value option
-val add: env -> string -> value -> env
+let new_env () : env = StringMap.empty
+let lookup (e: env) (id: string) : value option = 
+  StringMap.find_opt id e
 
-val string_of_value: value -> string
+let add (e: env) (id: string) (v: value) : env =
+  StringMap.add id v e
+
+let string_of_value (v: value): string =
+  match v with
+  | IntVal(i) -> string_of_int i
+  | BoolVal(b) -> string_of_bool b
+  | Closure(fname, _, _, _) -> "function " ^ fname

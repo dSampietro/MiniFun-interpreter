@@ -9,9 +9,9 @@ let () =
     (* analyze_lexing lexbuf; *)
     try
       let program = (Lib.MfParser.prg Lib.MfLexer.read lexbuf) in
-      let env = Lib.Enviroment.new_env () in
+      let env = Lib.Environment.new_env () in
       let res = Lib.MiniFun_interpreter.eval env program in
-      Printf.printf "%s\n" (Lib.Enviroment.string_of_value res); 
+      Printf.printf "%s\n" (Lib.Environment.string_of_value res); 
       close_in input_file
     with
     | Lib.MfParser.Error ->

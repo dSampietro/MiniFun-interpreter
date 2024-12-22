@@ -1,1 +1,1 @@
-val eval: Enviroment.env -> MiniFun.exp -> Enviroment.value
+val eval: Environment.env -> MiniFun.exp -> Environment.value
