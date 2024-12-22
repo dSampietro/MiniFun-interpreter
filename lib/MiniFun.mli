@@ -11,7 +11,7 @@ type exp =
   | Var of string
   | Aval of int
   | Bval of bool
-  | Fun of string * exp * exp
+  | Fun of exp * exp
   
   | App of exp * exp
   | Op of operator * exp * exp
@@ -19,4 +19,4 @@ type exp =
   | IfElse of exp * exp * exp
 
   | Let of exp * exp * exp
-  | LetFun of exp * exp * exp * exp
+  | LetFun of string * exp * exp * exp
