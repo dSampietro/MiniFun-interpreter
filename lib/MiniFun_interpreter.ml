@@ -48,9 +48,9 @@ let rec eval (env: Environment.env) (e: MiniFun.exp) : Environment.value = match
       | _ -> failwith "Type error in condition"
     )
   
-  | Fun(funName, arg, body) -> (
+  | Fun(arg, body) -> (
     match arg with
-    | Var(_) -> Closure(funName, arg, body, env)
+    | Var(_) -> Closure(arg, body, env)
     | _ -> failwith "Invalid expression"
     )
 
@@ -64,23 +64,17 @@ let rec eval (env: Environment.env) (e: MiniFun.exp) : Environment.value = match
       )
     | _ -> failwith "Invalid expression")
 
-  | LetFun(f, x, _, t2) -> 
+  | LetFun(f, x, t1, t2) -> 
     (match x with
     | Var(_) -> (
-      match eval env f with
-      | Closure(funName, arg, body, env') -> 
-        (match arg with 
-          | Var(arg) -> 
-            ( let recEnv = Environment.add env funName (Closure(funName, Var(arg), body, env'))
-              in eval recEnv t2)
-          | _ -> failwith "Not a valid expression"
-        )
-      | _ -> failwith "Invalid function for LetFun")
+      let recEnv = Environment.add env f (RecClosure(f, x, t1, env))
+      in eval recEnv t2
+      )
     | _ -> failwith "Invalid argument for LetFun")
 
   | App(t1, t2) -> (
       match eval env t1 with
-        | Closure(_, Var(arg), body, env1) -> 
+        | Closure(Var(arg), body, env1) -> 
           (
           let t2' = eval env t2 in
           let env2 = Environment.add env1 arg t2'
