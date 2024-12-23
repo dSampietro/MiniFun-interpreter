@@ -20,3 +20,6 @@ type exp =
 
   | Let of exp * exp * exp
   | LetFun of string * exp * exp * exp
+
+
+val string_of_exp: exp -> string
