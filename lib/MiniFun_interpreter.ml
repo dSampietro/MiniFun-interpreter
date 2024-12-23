@@ -75,11 +75,17 @@ let rec eval (env: Environment.env) (e: MiniFun.exp) : Environment.value = match
   | App(t1, t2) -> (
       match eval env t1 with
         | Closure(Var(arg), body, env1) -> 
-          (
           let t2' = eval env t2 in
           let env2 = Environment.add env1 arg t2'
           in eval env2 body
-          )
-        | _ -> failwith "First term is not a function"
+          
+        (* application of a recursive function *)
+        | RecClosure(fname, Var(arg), body, env1) ->
+          let t2' = eval env t2 in
+          let env2 = Environment.add env1 fname (RecClosure(fname, Var(arg), body, env1)) in
+          let env2 = Environment.add env2 arg t2' in
+          eval env2 body
+
+        | _ -> failwith @@ "First term " ^ (MiniFun.string_of_exp t1) ^ " is not a function"
     )
  (* | _ -> failwith "Not a valid expression"*)
