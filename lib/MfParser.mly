@@ -14,11 +14,6 @@
 %start <MiniFun.exp> prg
 %type <MiniFun.exp> trm
 
-
-(* %left PLUS MINUS *)
-(* %left TIMES AND *)
-(* %left MINOR *)
-(* %right NOT *)
 %%
 
 prg:
