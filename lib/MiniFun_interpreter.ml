@@ -37,7 +37,7 @@ let rec eval (env: Environment.env) (e: MiniFun.exp) : Environment.value = match
   | Not(e) -> (
     match eval env e with
     | BoolVal(a) -> BoolVal(not a)
-    | _ -> failwith "The argument should be a boolean expression"
+    | _ -> failwith "The argument must be a boolean expression"
   )  
 
 
@@ -45,7 +45,7 @@ let rec eval (env: Environment.env) (e: MiniFun.exp) : Environment.value = match
     match eval env cond with
       | BoolVal(true) -> eval env t1
       | BoolVal(false) -> eval env t2
-      | _ -> failwith "Type error in condition"
+      | _ -> failwith "Invalid condition: must be a boolean expression"
     )
   
   | Fun(arg, body) -> (
